@@ -33,12 +33,14 @@
 
             <TextView
                 android:id="@+id/taskName"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
                 android:fontFamily="sans-serif"
                 android:textSize="16sp"
+                app:layout_constraintEnd_toStartOf="@+id/task_sync_direction"
                 app:layout_constraintStart_toEndOf="@+id/taskIcon"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Google Drive" />
@@ -81,7 +83,7 @@
                 android:id="@+id/task_sync_direction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="16dp"
                 android:text="@string/sync"
                 android:textSize="12sp"
                 android:textStyle="italic"
@@ -93,6 +95,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="@+id/toLabel"
                 app:layout_constraintEnd_toStartOf="@+id/file_options"
@@ -103,54 +106,45 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/fromID"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="2dp"
-                        android:singleLine="true"
-                        android:text="fromid"
                         android:textColor="@color/textColorHighlight"
                         android:textStyle="italic"
-                        tools:ignore="HardcodedText" />
+                        tools:text="fromid:" />
 
                     <TextView
                         android:id="@+id/fromPath"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:text="fromPath"
-                        tools:ignore="HardcodedText" />
+                        tools:text="fromPath" />
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
                     android:gravity="start"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/toID"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="2dp"
-                        android:singleLine="true"
-                        android:text="toid"
                         android:textAllCaps="false"
                         android:textColor="@color/textColorHighlight"
                         android:textStyle="italic"
-                        tools:ignore="HardcodedText" />
+                        tools:text="toid:" />
 
                     <TextView
                         android:id="@+id/toPath"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:singleLine="true"
-                        android:text="toPath"
-                        tools:ignore="HardcodedText" />
+                        tools:text="toPath" />
 
                 </LinearLayout>
             </LinearLayout>
