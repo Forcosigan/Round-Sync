@@ -52,31 +52,7 @@ jobs:
         uses: actions/setup-go@v7
         with:
           go-version: '1.26.x'
-          cache: true
-
-      # ---------------------------------------------------------
-      # CACHE Go modules (velocizza scaricamenti moduli)
-      # ---------------------------------------------------------
-      - name: Cache Go modules
-        uses: actions/cache@v6
-        with:
-          path: |
-            ~/go/pkg/mod
-          key: go-mod-${{ hashFiles('rclone/go.sum') }}
-          restore-keys: |
-            go-mod-
-
-      # ---------------------------------------------------------
-      # CACHE Go build cache (velocizza compilazioni)
-      # ---------------------------------------------------------
-      - name: Cache Go build cache
-        uses: actions/cache@v6
-        with:
-          path: |
-            ~/.cache/go-build
-          key: go-build-${{ hashFiles('rclone/go.sum') }}
-          restore-keys: |
-            go-build-
+          cache: false
 
       # -----------------------------
       # ANDROID NDK
@@ -100,14 +76,9 @@ jobs:
       # BUILD AND SIGN
       # -----------------------------
       - name: Build Signed Release APK (ALL SPLITS)
-        env:
-          CMD_RELEASE_KEYSTORE: release.keystore
-          CMD_RELEASE_KEYSTORE_PASSWORD: ${{ env.KEY_STORE_PASSWORD }}
-          CMD_RELEASE_KEY_ALIAS: ${{ env.KEY_ALIAS }}
-          CMD_RELEASE_KEY_PASSWORD: ${{ env.KEY_PASSWORD }}
         run: |
           echo "Eseguo build completa con TUTTE le architetture..."
-          ./gradlew assembleOssRelease --stacktrace
+          ./gradlew assembleOssDebug --stacktrace
 
       ###########################################################
       # ARTIFACT SEPARATI
@@ -117,7 +88,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: roundsync-oss-arm64-v8a
-          path: app/build/outputs/apk/oss/release/*-oss-arm64-v8a-release.apk
+          path: app/build/outputs/apk/oss/debug/*-oss-arm64-v8a-debug.apk
           retention-days: 90
           if-no-files-found: warn
 
@@ -125,7 +96,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: roundsync-oss-armeabi-v7a
-          path: app/build/outputs/apk/oss/release/*-oss-armeabi-v7a-release.apk
+          path: app/build/outputs/apk/oss/debug/*-oss-armeabi-v7a-debug.apk
           retention-days: 90
           if-no-files-found: warn
 
@@ -133,7 +104,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: roundsync-oss-x86
-          path: app/build/outputs/apk/oss/release/*-oss-x86-release.apk
+          path: app/build/outputs/apk/oss/debug/*-oss-x86-debug.apk
           retention-days: 90
           if-no-files-found: warn
 
@@ -141,7 +112,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: roundsync-oss-x86_64
-          path: app/build/outputs/apk/oss/release/*-oss-x86_64-release.apk
+          path: app/build/outputs/apk/oss/debug/*-oss-x86_64-debug.apk
           retention-days: 90
           if-no-files-found: warn
 
@@ -149,7 +120,7 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: roundsync-oss-universal
-          path: app/build/outputs/apk/oss/release/*-oss-universal-release.apk
+          path: app/build/outputs/apk/oss/debug/*-oss-universal-debug.apk
           retention-days: 90
           if-no-files-found: warn
 
@@ -158,17 +129,17 @@ jobs:
       ###########################################################
       - name: Create GitHub Release
         if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v3
+        uses: softprops/action-gh-debug@v3
         with:
           generate_release_notes: true
           draft: false
           prerelease: false
           files: |
-            app/build/outputs/apk/oss/release/*-oss-arm64-v8a-release.apk
-            app/build/outputs/apk/oss/release/*-oss-armeabi-v7a-release.apk
-            app/build/outputs/apk/oss/release/*-oss-x86-release.apk
-            app/build/outputs/apk/oss/release/*-oss-x86_64-release.apk
-            app/build/outputs/apk/oss/release/*-oss-universal-release.apk
+            app/build/outputs/apk/oss/debug/*-oss-arm64-v8a-debug.apk
+            app/build/outputs/apk/oss/debug/*-oss-armeabi-v7a-debug.apk
+            app/build/outputs/apk/oss/debug/*-oss-x86-debug.apk
+            app/build/outputs/apk/oss/debug/*-oss-x86_64-debug.apk
+            app/build/outputs/apk/oss/debug/*-oss-universal-debug.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -187,8 +158,8 @@ jobs:
             Branch/Tag: ${{ github.ref_name }}
             I file APK sono allegati qui sotto.
           document: |
-            app/build/outputs/apk/oss/release/*-oss-arm64-v8a-release.apk
-            app/build/outputs/apk/oss/release/*-oss-armeabi-v7a-release.apk
-            app/build/outputs/apk/oss/release/*-oss-x86-release.apk
-            app/build/outputs/apk/oss/release/*-oss-x86_64-release.apk
-            app/build/outputs/apk/oss/release/*-oss-universal-release.apk
+            app/build/outputs/apk/oss/debug/*-oss-arm64-v8a-debug.apk
+            app/build/outputs/apk/oss/debug/*-oss-armeabi-v7a-debug.apk
+            app/build/outputs/apk/oss/debug/*-oss-x86-debug.apk
+            app/build/outputs/apk/oss/debug/*-oss-x86_64-debug.apk
+            app/build/outputs/apk/oss/debug/*-oss-universal-debug.apk
