@@ -8,7 +8,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:elevation="4dp"
         android:theme="@style/SecondaryCardStyle"
@@ -17,14 +17,13 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/taskIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="16dp"
                 android:contentDescription="@string/remote_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +34,7 @@
                 android:id="@+id/taskName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="sans-serif"
@@ -58,18 +57,14 @@
                 android:id="@+id/toLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
                 android:text="@string/task_item_label_to"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/fromLabel"
-                app:layout_constraintTop_toBottomOf="@+id/fromLabel" />
+                app:layout_constraintTop_toTopOf="@+id/toLayout" />
 
             <ImageButton
                 android:id="@+id/file_options"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
                 android:background="?selectableItemBackgroundBorderless"
                 android:contentDescription="@string/file_options_content_description"
                 android:minWidth="48dp"
@@ -92,17 +87,20 @@
                 app:layout_constraintTop_toTopOf="@+id/taskName" />
 
             <LinearLayout
+                android:id="@+id/pathsContainer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="16dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="@+id/toLabel"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/file_options"
                 app:layout_constraintStart_toEndOf="@+id/fromLabel"
                 app:layout_constraintTop_toTopOf="@+id/fromLabel">
 
                 <LinearLayout
+                    android:id="@+id/fromLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -125,9 +123,10 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/toLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:layout_marginTop="6dp"
                     android:gravity="start"
                     android:orientation="vertical">
 
